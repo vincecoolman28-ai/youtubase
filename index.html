@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HPSJ Portail vincent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'hpsj-dark': '#111827', /* Gray 900 */
+              'hpsj-card': '#1f2937', /* Gray 800 */
+              'hpsj-metal': '#374151', /* Gray 700 - Metal surface */
+              'hpsj-silver': '#9ca3af', /* Gray 400 - Silver text */
+              'hpsj-blue': '#3b82f6', /* Royal Blue - LED Indicator */
+              'hpsj-cyan': '#06b6d4', /* Cyan - Secondary Indicator */
+            },
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+              mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+            },
+            backgroundImage: {
+              'metal-gradient': 'linear-gradient(to bottom, #4b5563, #374151)',
+              'metal-sheen': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+      
+      :root {
+        --bg-primary: #f3f4f6;
+        --bg-secondary: #e5e7eb;
+        --text-primary: #111827;
+        --text-secondary: #4b5563;
+        --border-color: #9ca3af;
+        --accent-color: #2563eb;
+        --highlight-color: #0891b2;
+        --table-head-bg: #d1d5db;
+        --table-row-bg: #f9fafb;
+        --table-border: #9ca3af;
+        --shadow-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .dark {
+        --bg-primary: #030712; /* Very dark metal */
+        --bg-secondary: #1f2937; /* Gunmetal */
+        --text-primary: #e5e7eb; /* Silver/White */
+        --text-secondary: #9ca3af; /* Silver muted */
+        --border-color: #4b5563; /* Steel */
+        --accent-color: #60a5fa; /* Blue LED */
+        --highlight-color: #22d3ee; /* Cyan LED */
+        --table-head-bg: #374151;
+        --table-row-bg: rgba(31, 41, 55, 0.7);
+        --table-border: #4b5563;
+        --shadow-color: rgba(0, 0, 0, 0.7);
+      }
+      
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: color 0.3s;
+        min-height: 100vh;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* TEXTURE MÉTALLIQUE DE FOND */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -2;
+        /* Brushed Metal Texture imitation with gradients */
+        background: 
+          repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px),
+          linear-gradient(to bottom, #1f2937, #111827);
+        background-attachment: fixed;
+      }
+
+      input, textarea {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+      }
+
+      /* Scrollbar Metallic */
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1f2937; 
+        border-left: 1px solid #374151;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to right, #4b5563, #6b7280); 
+        border-radius: 2px;
+        border: 1px solid #1f2937;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af; 
+      }
+
+      .scrollbar-red::-webkit-scrollbar-track {
+        background: #450a0a !important; 
+      }
+      .scrollbar-red::-webkit-scrollbar-thumb {
+        background: linear-gradient(to right, #991b1b, #ef4444) !important;
+        border: 1px solid #450a0a;
+      }
+
+      /* Blueprint Grid Background for 2D Maps */
+      .blueprint-grid {
+        background-color: #0f172a;
+        background-image: 
+          linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+      }
+
+      /* Metallic Card Effect */
+      .metallic-card {
+        background: linear-gradient(145deg, #1f2937, #111827);
+        box-shadow: 
+          5px 5px 10px #0b0f19, 
+          -1px -1px 2px #2d3b4e;
+        border: 1px solid #374151;
+      }
+
+      /* Table Styles */
+      .dynamic-content table, 
+      .prose table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        border: 1px solid var(--table-border);
+      }
+      
+      .dynamic-content th,
+      .prose th {
+        background: linear-gradient(to bottom, #374151, #1f2937);
+        color: #e5e7eb;
+        padding: 12px;
+        border-bottom: 2px solid #4b5563;
+        border-right: 1px solid #4b5563;
+        text-align: left;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .dynamic-content td,
+      .prose td {
+        padding: 10px;
+        border-bottom: 1px solid var(--table-border);
+        border-right: 1px solid var(--table-border);
+        vertical-align: middle;
+      }
+      
+      .dynamic-content td:not([style*="background-color"]),
+      .prose td:not([style*="background-color"]) {
+         background-color: var(--table-row-bg);
+         color: var(--text-primary);
+      }
+
+      .horaires-highlight {
+        color: #f87171 !important; 
+        font-weight: bold;
+        text-shadow: 0 0 2px rgba(248, 113, 113, 0.2);
+      }
+
+      .dynamic-content h3, .prose h3 {
+        color: var(--accent-color);
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 8px;
+        margin-top: 20px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .dynamic-content h4, .prose h4 {
+        color: var(--highlight-color);
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      
+      .dynamic-content ul, .prose ul {
+        list-style-type: square; /* More technical look */
+        padding-left: 20px;
+        color: var(--text-primary);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.86.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script>
+      document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
+          e.preventDefault(); return false;
+        }
+      });
+    </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
