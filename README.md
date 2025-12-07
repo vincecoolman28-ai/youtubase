@@ -19,3 +19,4 @@ View your app in AI Studio: https://ai.studio/apps/drive/1nsSWAcAnIZ1I2WgzHMz__A
 3. Run the app:
    `npm run dev`
 "# youtubase" 
+"# essas28" 
